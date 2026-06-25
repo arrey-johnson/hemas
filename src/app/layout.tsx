@@ -69,9 +69,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/icon.svg",
-  },
   category: "Event Planning",
 };
 
@@ -81,8 +78,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={montserrat.variable}>
-      <body className="font-sans">
+    <html lang="en" className={montserrat.variable} suppressHydrationWarning>
+      <body className="font-sans" suppressHydrationWarning>
         <Header />
         <main>{children}</main>
         <Footer />

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Instagram, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { CONTACT, NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/constants";
 
 export function Footer() {
@@ -13,14 +13,9 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-rose to-plum-700">
-                <Sparkles className="h-4 w-4 text-ivory-50" />
-              </div>
-              <h3 className="font-serif text-2xl font-semibold text-ivory-50">
-                {SITE.name}
-              </h3>
-            </div>
+            <h3 className="font-serif text-2xl font-semibold text-ivory-50">
+              {SITE.name}
+            </h3>
             <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-champagne-light">
               {SITE.subtitle}
             </p>

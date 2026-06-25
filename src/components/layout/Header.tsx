@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MapPin, Menu, Phone, Sparkles, X } from "lucide-react";
+import { MapPin, Menu, Phone, X } from "lucide-react";
 import { CONTACT, NAV_LINKS, SITE } from "@/lib/constants";
 
 export function Header() {
@@ -62,36 +62,23 @@ export function Header() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8 lg:py-4">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-3">
-            <div
-              className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 ${
+          <Link href="/" className="group flex flex-col">
+            <span
+              className={`font-serif text-xl font-semibold leading-tight tracking-tight transition-colors sm:text-2xl ${
                 isTransparent
-                  ? "bg-ivory-50/15 ring-1 ring-ivory-200/30 backdrop-blur-sm group-hover:bg-ivory-50/25"
-                  : "bg-gradient-to-br from-rose to-plum-700 shadow-glow group-hover:shadow-card"
+                  ? "text-ivory-50 group-hover:text-champagne-light"
+                  : "text-plum-900 group-hover:text-rose-dark"
               }`}
             >
-              <Sparkles
-                className={`h-5 w-5 ${isTransparent ? "text-champagne-light" : "text-ivory-50"}`}
-              />
-            </div>
-            <div className="flex flex-col">
-              <span
-                className={`font-serif text-xl font-semibold leading-tight tracking-tight transition-colors sm:text-2xl ${
-                  isTransparent
-                    ? "text-ivory-50 group-hover:text-champagne-light"
-                    : "text-plum-900 group-hover:text-rose-dark"
-                }`}
-              >
-                {SITE.name}
-              </span>
-              <span
-                className={`text-[10px] font-medium uppercase tracking-[0.18em] sm:text-xs ${
-                  isTransparent ? "text-champagne-light/90" : "text-plum-600"
-                }`}
-              >
-                {SITE.subtitle}
-              </span>
-            </div>
+              {SITE.name}
+            </span>
+            <span
+              className={`text-[10px] font-medium uppercase tracking-[0.18em] sm:text-xs ${
+                isTransparent ? "text-champagne-light/90" : "text-plum-600"
+              }`}
+            >
+              {SITE.subtitle}
+            </span>
           </Link>
 
           {/* Desktop nav */}
