@@ -23,7 +23,19 @@ export function Header() {
     setMobileOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const isTransparent = isHome && !scrolled && !mobileOpen;
+  const mobileMenuOpen = mobileOpen;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -57,15 +69,15 @@ export function Header() {
         className={`transition-all duration-300 ${
           isTransparent
             ? "border-b border-ivory-200/10 bg-transparent"
-            : "border-b border-champagne-200/60 bg-nav-glass shadow-soft backdrop-blur-xl"
-        }`}
+            : "border-b border-champagne-200/60 bg-ivory-50 shadow-soft"
+        } ${mobileMenuOpen ? "!bg-ivory-50 !shadow-card" : ""}`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8 lg:py-4">
           {/* Logo */}
           <Link href="/" className="group flex flex-col">
             <span
               className={`font-serif text-xl font-semibold leading-tight tracking-tight transition-colors sm:text-2xl ${
-                isTransparent
+                isTransparent && !mobileMenuOpen
                   ? "text-ivory-50 group-hover:text-champagne-light"
                   : "text-plum-900 group-hover:text-rose-dark"
               }`}
@@ -74,7 +86,9 @@ export function Header() {
             </span>
             <span
               className={`text-[10px] font-medium uppercase tracking-[0.18em] sm:text-xs ${
-                isTransparent ? "text-champagne-light/90" : "text-plum-600"
+                isTransparent && !mobileMenuOpen
+                  ? "text-champagne-light/90"
+                  : "text-plum-600"
               }`}
             >
               {SITE.subtitle}
@@ -127,9 +141,9 @@ export function Header() {
           <button
             type="button"
             className={`rounded-xl p-2.5 transition-colors lg:hidden ${
-              isTransparent
+              isTransparent && !mobileMenuOpen
                 ? "text-ivory-50 hover:bg-ivory-50/10"
-                : "text-plum-800 hover:bg-ivory-200"
+                : "text-plum-900 hover:bg-champagne-100"
             }`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -139,48 +153,62 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — solid panel for readability */}
       {mobileOpen && (
-        <div className="border-b border-champagne-200/60 bg-ivory-50/98 shadow-card backdrop-blur-xl lg:hidden">
-          <nav className="mx-auto max-w-7xl space-y-1 px-4 py-4 sm:px-6">
-            {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.href;
-              return (
+        <>
+          <div
+            className="fixed inset-0 top-0 z-40 bg-plum-900/50 lg:hidden"
+            aria-hidden
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="relative z-50 border-b border-champagne-200 bg-ivory-50 shadow-card lg:hidden">
+            <nav className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
+              <ul className="space-y-2">
+                {NAV_LINKS.map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className={`flex items-center rounded-xl border px-4 py-3.5 text-base font-semibold transition-colors ${
+                          isActive
+                            ? "border-rose-200 bg-rose-50 text-rose-dark"
+                            : "border-champagne-200/80 bg-white text-plum-900 hover:border-rose-200 hover:bg-rose-50/50"
+                        }`}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="mt-5 space-y-3 border-t border-champagne-200 pt-5">
+                <p className="px-1 text-xs font-semibold uppercase tracking-wider text-plum-600">
+                  Call us
+                </p>
+                {CONTACT.phones.map((phone) => (
+                  <a
+                    key={phone}
+                    href={`tel:${phone.replace(/\D/g, "")}`}
+                    className="flex items-center gap-3 rounded-xl border border-champagne-200/80 bg-white px-4 py-3 text-base font-semibold text-plum-900"
+                  >
+                    <Phone className="h-5 w-5 shrink-0 text-rose-dark" />
+                    {phone}
+                  </a>
+                ))}
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                    isActive
-                      ? "bg-rose-50 text-rose-dark"
-                      : "text-plum-800 hover:bg-ivory-200"
-                  }`}
+                  href="/contact"
+                  className="btn-primary mt-2 block w-full !py-4 text-center text-base"
                   onClick={() => setMobileOpen(false)}
                 >
-                  {link.label}
+                  Book an Event
                 </Link>
-              );
-            })}
-            <div className="mt-4 space-y-3 border-t border-champagne-200/60 pt-4">
-              {CONTACT.phones.map((phone) => (
-                <a
-                  key={phone}
-                  href={`tel:${phone.replace(/\D/g, "")}`}
-                  className="flex items-center gap-2 px-4 text-sm text-plum-600"
-                >
-                  <Phone className="h-4 w-4 text-rose" />
-                  {phone}
-                </a>
-              ))}
-              <Link
-                href="/contact"
-                className="btn-primary w-full !py-3.5 text-center"
-                onClick={() => setMobileOpen(false)}
-              >
-                Book an Event
-              </Link>
-            </div>
-          </nav>
-        </div>
+              </div>
+            </nav>
+          </div>
+        </>
       )}
     </header>
   );
