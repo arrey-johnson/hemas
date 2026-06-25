@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #fffcf8;
+    color: #3d2840;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #f9d0d9;
+    color: #3d2840;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold text-white transition-all duration-300;
+    background-image: linear-gradient(
+      135deg,
+      #d46b82 0%,
+      #c2556e 50%,
+      #b8956b 100%
+    );
+    box-shadow: 0 8px 32px -8px rgba(212, 107, 130, 0.35);
+  }
+
+  .btn-primary:hover {
+    background-image: linear-gradient(
+      135deg,
+      #c2556e 0%,
+      #a3445a 50%,
+      #9a7a52 100%
+    );
+    box-shadow: 0 12px 40px -12px rgba(45, 26, 40, 0.15);
+  }
+
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center rounded-full border-2 px-8 py-4 text-base font-semibold backdrop-blur-md transition-all duration-300;
+    border-color: rgba(240, 230, 216, 0.6);
+    background-color: rgba(255, 252, 248, 0.1);
+    color: #fffcf8;
+  }
+
+  .btn-outline-light:hover {
+    border-color: #e8d5b5;
+    background-color: rgba(255, 252, 248, 0.2);
+  }
+
+  .section-eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.25em];
+    color: #a3445a;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl font-bold sm:text-4xl lg:text-5xl;
+    color: #3d2840;
+  }
+
+  .nav-link {
+    @apply relative text-sm font-medium tracking-wide transition-colors duration-200;
+    color: #5c3d52;
+  }
+
+  .nav-link:hover {
+    color: #a3445a;
+  }
+
+  .nav-link::after {
+    @apply absolute -bottom-1 left-0 h-0.5 w-0 transition-all duration-300 content-[''];
+    background: linear-gradient(90deg, #d46b82, #d4b896);
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .filter-pill {
+    @apply rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200;
+  }
+
+  .filter-pill-active {
+    @apply text-white;
+    background-image: linear-gradient(
+      135deg,
+      #d46b82 0%,
+      #c2556e 50%,
+      #b8956b 100%
+    );
+    box-shadow: 0 8px 32px -8px rgba(212, 107, 130, 0.35);
+  }
+
+  .filter-pill-inactive {
+    @apply bg-white shadow-soft;
+    color: #5c3d52;
+  }
+
+  .filter-pill-inactive:hover {
+    background-color: #f9f3eb;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .ornament-line {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #d4b896 20%,
+      #d46b82 50%,
+      #d4b896 80%,
+      transparent
+    );
+    height: 1px;
+  }
+}
